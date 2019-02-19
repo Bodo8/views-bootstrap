@@ -1,0 +1,15 @@
+body {
+    background-color: #ffffe6;
+}
+
+h3 {
+    color: darkgreen;
+    text-align: center;
+}
+
+.pagination > li > a,
+.pagination > li > span {
+    color: green;
+    border-color: green;
+}
+

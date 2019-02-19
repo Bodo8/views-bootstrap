@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
+
+    <link href="../css/public/yearWeek.css" rel="stylesheet" type="text/css">
+
+    <title>My task list</title>
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="container-fluid" id="upPage">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>My task list-dev</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div id="choiceYear">-->
+            <div class="container-fluid" id="choiceYear">
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown"
+                                style="justify-content: left" type="button">
+                            <a id="yearButton"></a>
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">
+                                <p id="nextYearButt" onclick="setCurrentYear(1)"></p>
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <p id="afterNextYearButt" onclick="setCurrentYear(2)"></p>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!--<div id="choiceMonth">-->
+                    <div class="col-9" id="choiceMonth">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" onclick="prevCurrentMonth()"><a class="page-link" href="#"> < </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#"><p id="firstMonth"
+                                                                                   style="margin-bottom: 0"></p>
+                            </a></li>
+                            <li class="page-item active"><a class="page-link" href="#"><p id="activeMonth"
+                                                                                          style="margin-bottom: 0"></p>
+                            </a></li>
+                            <li class="page-item"><a class="page-link" href="#"><p id="nextMonth"
+                                                                                   style="margin-bottom: 0"></p></a>
+                            </li>
+                            <li class="page-item" onclick="nextCurrentMonth()"><a class="page-link" href="#"> > </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-7">
+                        <table class="table" id="tableDays">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                            </thead>
+                            <tbody id="daysMonthButton">
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb1"
+                                            onclick="setActualDayButton(1)">
+                                        <a id="but1"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb2"
+                                            onclick="setActualDayButton(2)">
+                                        <a id="but2"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb3"
+                                            onclick="setActualDayButton(3)">
+                                        <a id="but3"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb4"
+                                            onclick="setActualDayButton(4)">
+                                        <a id="but4"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb5"
+                                            onclick="setActualDayButton(5)">
+                                        <a id="but5"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb6"
+                                            onclick="setActualDayButton(6)">
+                                        <a id="but6"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb7"
+                                            onclick="setActualDayButton(7)">
+                                        <a id="but7"></a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb8"
+                                            onclick="setActualDayButton(8)">
+                                        <a id="but8"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb9"
+                                            onclick="setActualDayButton(9)">
+                                        <a id="but9"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb10"
+                                            onclick="setActualDayButton(10)"><a id="but10"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb11"
+                                            onclick="setActualDayButton(11)"><a id="but11"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb12"
+                                            onclick="setActualDayButton(12)"><a id="but12"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb13"
+                                            onclick="setActualDayButton(13)"><a id="but13"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb14"
+                                            onclick="setActualDayButton(14)"><a id="but14"></a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb15"
+                                            onclick="setActualDayButton(15)"><a id="but15"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb16"
+                                            onclick="setActualDayButton(16)"><a id="but16"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb17"
+                                            onclick="setActualDayButton(17)"><a id="but17"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb18"
+                                            onclick="setActualDayButton(18)"><a id="but18"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb19"
+                                            onclick="setActualDayButton(19)"><a id="but19"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb20"
+                                            onclick="setActualDayButton(20)"><a id="but20"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb21"
+                                            onclick="setActualDayButton(21)"><a id="but21"></a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb22"
+                                            onclick="setActualDayButton(22)"><a id="but22"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb23"
+                                            onclick="setActualDayButton(23)"><a id="but23"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb24"
+                                            onclick="setActualDayButton(24)"><a id="but24"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb25"
+                                            onclick="setActualDayButton(25)"><a id="but25"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb26"
+                                            onclick="setActualDayButton(26)"><a id="but26"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb27"
+                                            onclick="setActualDayButton(27)"><a id="but27"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb28"
+                                            onclick="setActualDayButton(28)"><a id="but28"></a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb29"
+                                            onclick="setActualDayButton(29)"><a id="but29"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb30"
+                                            onclick="setActualDayButton(30)"><a id="but30"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb31"
+                                            onclick="setActualDayButton(31)"><a id="but31"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb32"
+                                            onclick="setActualDayButton(32)"><a id="but32"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb33"
+                                            onclick="setActualDayButton(33)"><a id="but33"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb34"
+                                            onclick="setActualDayButton(34)"><a id="but34"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb35"
+                                            onclick="setActualDayButton(35)"><a id="but35"></a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb36"
+                                            onclick="setActualDayButton(36)"><a id="but36"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb37"
+                                            onclick="setActualDayButton(37)"><a id="but37"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb38"
+                                            onclick="setActualDayButton(38)"><a id="but38"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb39"
+                                            onclick="setActualDayButton(39)"><a id="but39"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb40"
+                                            onclick="setActualDayButton(40)"><a id="but40"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb41"
+                                            onclick="setActualDayButton(41)"><a id="but41"></a></button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" id="bb42"
+                                            onclick="setActualDayButton(42)"><a id="but42"></a></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="col-12">
+                    <div class="input-group mb-4">
+                        <input id="textToList" type="text" class="form-control" placeholder="New Task..">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" onclick="addElementToList('new')">OK</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container-fluid">
+                    <div class="col-7">
+                        <div class="row" id="rowList">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--test button !!!!-->
+        </div>
+        <button class="btn btn-primary" type="button" id="debug"></button>
+    </div>
+
+</div>
+</div>
+</div>
+
+<script src="../js/yearWeek.js"></script>
+<script src="../js/refreshView.js"></script>
+<script src="../js/requestHandler.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
