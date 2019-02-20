@@ -69,11 +69,14 @@ class MySqlAdapter
 
     public function selectPost($getParameters)
     {
+        $idListFromDatabase = [];
+        $taskListFromDatabase = [];
         $connectDB = $this->connect();
 
         if ($connectDB != null) {
             $getQuery = "SELECT `date_id`, `years`, `months`, `weeks`, `days`, `task_id` FROM `dead_line` WHERE 
                           years=? AND months=? AND weeks=? AND days=?";
+            $taskQuery = "SELECT `task_id`, `description`, `range_task` FROM `tasks` WHERE task_id=?";
 
             if ($getStatementQuery = $connectDB->prepare($getQuery)) {
 
@@ -82,22 +85,36 @@ class MySqlAdapter
                     $getStatementQuery->execute();
                     $result = $getStatementQuery->get_result();
                     if ($result->num_rows > 0) {
-                        $deadlineRows = [];
+
                         while ($row = $result->fetch_array()) {
-
-                            array_push($deadlineRows, $row["task_id"]);
+                            array_push($idListFromDatabase, $row["task_id"]);
                         }
-                        print (json_encode($deadlineRows));
+                        foreach ($idListFromDatabase as $idTask) {
 
+                            if ($getStatementQuery = $connectDB->prepare($taskQuery)) {
+
+                                if ($getStatementQuery->bind_param("i", $idTask)) {
+                                    $getStatementQuery->execute();
+                                    $result = $getStatementQuery->get_result();
+                                        $row = $result->fetch_array();
+                                        array_push($taskListFromDatabase, $row["description"]);
+                                } else {
+                                    echo("PHP EXCEPTION: CAN'T BIND PARAM TO TASK QUERY SQL ");
+                                }
+                            } else {
+                                echo("PHP EXCEPTION: CANT'T PREPARE QUERY TO MYSQL.");
+                            }
+                        }
+                        print (json_encode($taskListFromDatabase));
 
                     } else {
                         print (json_encode(array("You don't have any tasks today.")));
                     }
                 } else {
-                    echo ("PHP EXCEPTION: CAN'T BIND PARAM TO QUERY SQL ");
+                    echo("PHP EXCEPTION: CAN'T BIND PARAM TO DEADLINE QUERY SQL ");
                 }
             } else {
-                echo ("PHP EXCEPTION: CANT'T PREPARE QUERY TO MYSQL.");
+                echo("PHP EXCEPTION: CANT'T PREPARE DEADLINE QUERY TO MYSQL.");
             }
             $connectDB->close();
         } else {
@@ -105,8 +122,3 @@ class MySqlAdapter
         }
     }
 }
-
-//$funT = new MySqlAdapter();
-//$funT->selectPost();
-//$arr = [2019, 1, 4, 22,"stars88", 0];
-//$funT->insertPost($arr);

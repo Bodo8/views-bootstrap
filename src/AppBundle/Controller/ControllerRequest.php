@@ -27,12 +27,6 @@ class ControllerRequest
         } else {
             $mySqlAdapter = new MySqlAdapter();
             $getParameters = [];
-
-            // dateTab["actualYear"] = currentDate.yearCurrent;
-            // dateTab["actualMonth"] = currentDate.monthCurrent;
-            // dateTab["actualWeek"] = currentDate.weekCurrent;
-            // dateTab["actualNumberDayWeek]"] = currentDate.numberDayWeek;
-            // dateTab["actualDay"] = currentDate.dayCurrent;
             array_push($getParameters, $_GET['actualYear']);
             array_push($getParameters, $_GET['actualMonth']);
             array_push($getParameters, $_GET['actualWeek']);

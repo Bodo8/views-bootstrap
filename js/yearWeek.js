@@ -235,9 +235,9 @@ function setCurrentYear(numberYear) {
 }
 
 function getActiveDate(dayActive) {
-    let year = dateTab["actualYear"];
-    let month = dateTab["actualMonth"];
-    return new Date(year, (month - 1), dayActive);
+        let year = dateTab["actualYear"];
+        let month = dateTab["actualMonth"];
+        return new Date(year, (month - 1), dayActive);
 }
 
 function getFirstDayMonth() {
@@ -259,12 +259,14 @@ function getTabWithNumberDaysStars() {
 
 function setActualDayButton(numberDay) {
     let day = tabWithNumberDays[numberDay];
+    if (day > 0) {
     dateTab["actualDay"] = day;
     let actualDate = getActiveDate(day);
     dateTab["actualWeek"] = getWeekNumber(actualDate);
-    if (day > 0) {
         removeOldListTask();
         getTaskFromDatabase(dateTab);
+    }else {
+        removeOldListTask();
     }
 }
 
@@ -273,7 +275,6 @@ function removeOldListTask() {
     while (list.hasChildNodes()) {
             list.removeChild(list.firstChild);
     }
-
 }
 
 function addElementToList(lineFromDB) {
