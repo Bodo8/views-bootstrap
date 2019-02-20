@@ -143,10 +143,8 @@ function createListGroup() {
     let li = document.createElement('li');
     li.className = 'list-group-item list-group-item-action list-group-item-success';
     divRow.appendChild(ul);
-    ul.appendChild(li);
     document.body.appendChild(ul);
 }
-
 createListGroup();
 
 function setActiveCurrentButton() {
@@ -161,7 +159,6 @@ function setActiveCurrentButton() {
         }
     }
 }
-
 setActiveCurrentButton();
 
 function isSunday(numberWeekDay) {
@@ -205,7 +202,9 @@ function nextCurrentMonth() {
     refreshPagination();
     refreshYearButton();
     generateNumberDays("refresh");
+    generateTabWithNumberDaysStars();
     refreshMonthTable();
+    removeOldListTask();
 }
 
 function prevCurrentMonth() {
@@ -221,7 +220,9 @@ function prevCurrentMonth() {
     refreshPagination();
     refreshYearButton();
     generateNumberDays("refresh");
+    generateTabWithNumberDaysStars();
     refreshMonthTable();
+    removeOldListTask();
 }
 
 function setCurrentYear(numberYear) {
@@ -230,6 +231,7 @@ function setCurrentYear(numberYear) {
     refreshYearButton();
     generateNumberDays("refresh");
     refreshMonthTable();
+    removeOldListTask();
 }
 
 function getActiveDate(dayActive) {
@@ -267,15 +269,11 @@ function setActualDayButton(numberDay) {
 }
 
 function removeOldListTask() {
-    let ul = document.getElementById('listTasks');
-    let oldList = ul.querySelectorAll(".list-group-item");
-    let numberOfLine = oldList.length;
-    if (numberOfLine > 0) {
-        for (let k = 0; k < numberOfLine; k++) {
-            ul.removeChild(ul.childNodes[k]);
-        }
+    let list = document.getElementById('listTasks');
+    while (list.hasChildNodes()) {
+            list.removeChild(list.firstChild);
     }
-    //removeOldListTask();
+
 }
 
 function addElementToList(lineFromDB) {

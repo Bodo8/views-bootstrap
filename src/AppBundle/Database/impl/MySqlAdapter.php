@@ -77,29 +77,31 @@ class MySqlAdapter
 
             if ($getStatementQuery = $connectDB->prepare($getQuery)) {
 
-                $getStatementQuery->bind_param("iiii", $getParameters[0],
-                    $getParameters[1], $getParameters[2], $getParameters[3]);
+                if ($getStatementQuery->bind_param("iiii", $getParameters[0],
+                    $getParameters[1], $getParameters[2], $getParameters[3])) {
+                    $getStatementQuery->execute();
+                    $result = $getStatementQuery->get_result();
+                    if ($result->num_rows > 0) {
+                        $deadlineRows = [];
+                        while ($row = $result->fetch_array()) {
 
-                $getStatementQuery->execute();
-                $result = $getStatementQuery->get_result();
-                if ($result->num_rows > 0) {
-                    $deadlineRows = [];
-                    while ($row = $result->fetch_array()) {
+                            array_push($deadlineRows, $row["task_id"]);
+                        }
+                        print (json_encode($deadlineRows));
 
-                        array_push($deadlineRows, $row["task_id"]);
+
+                    } else {
+                        print (json_encode(array("You don't have any tasks today.")));
                     }
-                    print (json_encode($deadlineRows));
-
-
                 } else {
-                    echo("PHP EXCEPTION: CANT'T RETRIEVE FROM MYSQL.");
+                    echo ("PHP EXCEPTION: CAN'T BIND PARAM TO QUERY SQL ");
                 }
             } else {
-                print (json_encode(array("PHP EXCEPTION: CANT'T PREPARE QUERY TO MYSQL.")));
+                echo ("PHP EXCEPTION: CANT'T PREPARE QUERY TO MYSQL.");
             }
             $connectDB->close();
         } else {
-            print (json_encode(array("PHP EXCEPTION: CANT'T CONNECT TO MYSQL.")));
+            echo ("PHP EXCEPTION: CANT'T CONNECT TO MYSQL.");
         }
     }
 }
