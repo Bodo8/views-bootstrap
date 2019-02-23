@@ -8,30 +8,40 @@
 
 class ConnectMySQL
 {
-    private $connect;
+    private static $instance;
+    private $connectDb;
 
     /**
      * ConnectMySQL constructor.
      */
-    public function __construct()
+    private function __construct()
     {
-    }
+        try {
+            $this->connectDb = new \mysqli("localhost", "root", "aramej4",
+                "list_task", "3306");
+            $this->connectDb->set_charset("utf8mb4_unicode_ci");
 
-    public function getConnect(): mysqli
-    {
-        if ($this->connect === null) {
-            try {
-                $connectDb = new \mysqli("localhost", "root", "aramej4",
-                    "list_task", "3306");
-                $connectDb->set_charset("utf8mb4_unicode_ci");
+        } catch (Exception $e) {
+            print (json_encode("ERROR", "PHP EXCEPTION: CANT'T CONNECT TO MYSQL." . $e->getMessage()));
 
-            } catch (Exception $e) {
-                print (json_encode("ERROR", "PHP EXCEPTION: CANT'T CONNECT TO MYSQL." . $e->getMessage()));
-
-            }
-            return $connectDb;
-        } else {
-            return $this->connect;
         }
     }
+
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+           self::$instance = new ConnectMySQL();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * @return mysqli
+     */
+    public function getConnectDb(): mysqli
+    {
+        return $this->connectDb;
+    }
+
+    private function __clone() { }
 }

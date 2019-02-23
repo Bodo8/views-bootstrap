@@ -64,5 +64,5 @@ function getPreparedUrl(actualDateTab) {
             newUrl += key + "=" + actualDateTab[key] + "&";
         }
     }
-    return newUrl.substring(0, (newUrl.length - 24));
+    return newUrl.substring(0, (newUrl.length - 1));
 }

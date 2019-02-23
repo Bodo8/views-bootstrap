@@ -5,16 +5,14 @@ class InSqlDatabase implements Database
 {
     public function saveTask(DeadlineTask $deadlineTask)
     {
-        $connectMySQL = new ConnectMySQL();
-        $connectDb = $connectMySQL->getConnect();
-        //$connectDb = $this->connect();
+        $instanceConnectDB = ConnectMySQL::getInstance();
+        $connectDb = $instanceConnectDB->getConnectDb();
         if ($connectDb != null) {
 
             $sqlQueryTask = "INSERT INTO `tasks`(`task_id`, `description`, `range_task`) 
                              VALUES (NULL, ?, ?)";
             $deadlineQuery = "INSERT INTO `dead_line`(`date_id`, `years`, `months`, `weeks`, `days`, `task_id`)
                               VALUES (NULL, ?, ?, ?, ?, ?)";
-
             try {
 
                 if ($statementQuery = $connectDb->prepare($sqlQueryTask)) {
@@ -63,9 +61,8 @@ class InSqlDatabase implements Database
     {
         $idListFromDatabase = [];
         $taskListFromDatabase = [];
-        $connectMySQL = new ConnectMySQL();
-        $connectDb = $connectMySQL->getConnect();
-        //$connectDB = $this->connect();
+        $instanceConnectDB = ConnectMySQL::getInstance();
+        $connectDb = $instanceConnectDB->getConnectDb();
 
         if ($connectDb != null) {
             $getQuery = "SELECT `date_id`, `years`, `months`, `weeks`, `days`, `task_id` FROM `dead_line` WHERE 

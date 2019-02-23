@@ -119,9 +119,7 @@ function generateNumberDays(refresh) {
         }
     }
 }
-
 generateNumberDays();
-
 
 function generateTabWithNumberDaysStars() {
     for (let i = 0; i < tabWithNumberDays.length; i++) {
@@ -283,7 +281,8 @@ function addElementToList(lineFromDB) {
             let liNew = document.createElement("li");
             liNew.className = "list-group-item list-group-item-action list-group-item-success";
             liNew.textContent = textTask;
-            saveTaskToDatabase(dateTab);
+            let actualDate = getCopyDateTab();
+            saveTaskToDatabase(actualDate);
             removeOldListTask();
             ul.appendChild(liNew);
         }
@@ -302,6 +301,20 @@ function addElementToList(lineFromDB) {
     }
 }
 
+function getCopyDateTab() {
+    let actualDateTabCopy = [];
+    for (let key in dateTab) {
+        if (dateTab.hasOwnProperty(key)) {
+            if (key === "actualNumberDayWeek") {
+
+        } else {
+                actualDateTabCopy[key] = dateTab[key];
+            }
+        }
+    }
+    return actualDateTabCopy;
+}
+
 function getWeekNumber(date) {
     date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
@@ -309,7 +322,6 @@ function getWeekNumber(date) {
     let weekNumber = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
     return weekNumber;
 }
-
 
 document.getElementById("yearButton").innerHTML = dateTab["actualYear"];
 document.getElementById("nextYearButt").innerHTML = addOneYear(dateTab["actualYear"], 1);
