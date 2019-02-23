@@ -132,7 +132,6 @@ function generateTabWithNumberDaysStars() {
         tabWithNumberDaysStars[i] = day;
     }
 }
-
 generateTabWithNumberDaysStars();
 
 function createListGroup() {
@@ -252,11 +251,6 @@ function getTabWithNumberDays() {
     return tabWithNumberDays;
 }
 
-function getTabWithNumberDaysStars() {
-    return tabWithNumberDaysStars;
-}
-
-
 function setActualDayButton(numberDay) {
     let day = tabWithNumberDays[numberDay];
     if (day > 0) {
@@ -290,6 +284,7 @@ function addElementToList(lineFromDB) {
             liNew.className = "list-group-item list-group-item-action list-group-item-success";
             liNew.textContent = textTask;
             saveTaskToDatabase(dateTab);
+            removeOldListTask();
             ul.appendChild(liNew);
         }
     } else if (lineFromDB.length > 0) {
@@ -305,10 +300,6 @@ function addElementToList(lineFromDB) {
         li3.className = "list-group-item list-group-item-action list-group-item-success";
         ul.appendChild(li3);
     }
-}
-
-function showDebug(num) {
-    document.getElementById("debug").innerText = num;
 }
 
 function getWeekNumber(date) {

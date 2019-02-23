@@ -7,7 +7,8 @@
  */
 
 
-require_once ("../Database/Database.php");
+require_once("../Database/Database.php");
+require_once("../Database/impl/ConnectMySQL.php");
 require_once("../Database/impl/InSqlDatabase.php");
 require_once("../Entity/TaskBook.php");
 require_once("../Entity/DeadlineFactory.php");
@@ -31,9 +32,9 @@ class ControllerRequest
             array_push($deadlineNew, $_POST['descriptionTask']);
             array_push($deadlineNew, $_POST['rangeTask']);
             $task = $taskBook->createTask($deadlineNew[4], $deadlineNew[5]);
-            $taskBook->createDeadlineTask($deadlineNew[0], $deadlineNew[1],
+            $deadline = $taskBook->createDeadlineTask($deadlineNew[0], $deadlineNew[1],
                 $deadlineNew[2], $deadlineNew[3], $task);
-            $taskBook->saveTask($deadlineNew);
+            $taskBook->saveTask($deadline);
         } else {
             $database = new InSqlDatabase();
             $taskBook = new TaskBook($database);

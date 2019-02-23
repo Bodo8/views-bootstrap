@@ -1,29 +1,13 @@
 <?php
 
 
-
 class InSqlDatabase implements Database
 {
-    public function connect()
-    {
-        $connectDb = null;
-        try {
-
-            $connectDb = new \mysqli("localhost", "root", "aramej4",
-                "list_task", "3306");
-            $connectDb->set_charset("utf8mb4_unicode_ci");
-
-        } catch (Exception $e) {
-            print (json_encode("ERROR", "PHP EXCEPTION: CANT'T CONNECT TO MYSQL." . $e->getMessage()));
-
-        }
-        return $connectDb;
-    }
-
-
     public function saveTask(DeadlineTask $deadlineTask)
     {
-        $connectDb = $this->connect();
+        $connectMySQL = new ConnectMySQL();
+        $connectDb = $connectMySQL->getConnect();
+        //$connectDb = $this->connect();
         if ($connectDb != null) {
 
             $sqlQueryTask = "INSERT INTO `tasks`(`task_id`, `description`, `range_task`) 
@@ -34,7 +18,9 @@ class InSqlDatabase implements Database
             try {
 
                 if ($statementQuery = $connectDb->prepare($sqlQueryTask)) {
-                    $statementQuery->bind_param("si", $descriptionTask, $rangeTask);
+                    $statementQuery->bind_param("si",
+                        $deadlineTask->getTask()->getDescription(),
+                        $deadlineTask->getTask()->isImportantTask());
                     $statementQuery->execute();
                     $lastId = mysqli_insert_id($connectDb);
 
@@ -77,14 +63,16 @@ class InSqlDatabase implements Database
     {
         $idListFromDatabase = [];
         $taskListFromDatabase = [];
-        $connectDB = $this->connect();
+        $connectMySQL = new ConnectMySQL();
+        $connectDb = $connectMySQL->getConnect();
+        //$connectDB = $this->connect();
 
-        if ($connectDB != null) {
+        if ($connectDb != null) {
             $getQuery = "SELECT `date_id`, `years`, `months`, `weeks`, `days`, `task_id` FROM `dead_line` WHERE 
                           years=? AND months=? AND weeks=? AND days=?";
             $taskQuery = "SELECT `task_id`, `description`, `range_task` FROM `tasks` WHERE task_id=?";
 
-            if ($getStatementQuery = $connectDB->prepare($getQuery)) {
+            if ($getStatementQuery = $connectDb->prepare($getQuery)) {
 
                 if ($getStatementQuery->bind_param("iiii", $year,
                     $month, $week, $day)) {
@@ -97,7 +85,7 @@ class InSqlDatabase implements Database
                         }
                         foreach ($idListFromDatabase as $idTask) {
 
-                            if ($getStatementQuery = $connectDB->prepare($taskQuery)) {
+                            if ($getStatementQuery = $connectDb->prepare($taskQuery)) {
 
                                 if ($getStatementQuery->bind_param("i", $idTask)) {
                                     $getStatementQuery->execute();
@@ -122,7 +110,7 @@ class InSqlDatabase implements Database
             } else {
                 echo("PHP EXCEPTION: CANT'T PREPARE DEADLINE QUERY TO MYSQL.");
             }
-            $connectDB->close();
+            $connectDb->close();
         } else {
             echo ("PHP EXCEPTION: CANT'T CONNECT TO MYSQL.");
         }

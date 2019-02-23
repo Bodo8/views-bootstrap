@@ -11,9 +11,8 @@ class TaskBook
         $this->database = $databaseObject;
     }
 
-    public function saveTask($deadlineTask)
+    public function saveTask(DeadlineTask $deadlineTask)
     {
-
         $this->database->saveTask($deadlineTask);
     }
 
