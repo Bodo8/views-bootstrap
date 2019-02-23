@@ -6,7 +6,7 @@ require_once("../Entity/Task.php");
 
 interface Database
 {
-    public function saveTask(int $year, int $month, int $week, int $day, Task $task);
+    public function saveTask(DeadlineTask $deadlineTask);
 
     public function updateTask(int $year, int $month, int $week, int $day, Task $oldTask, Task $task);
 
@@ -15,8 +15,8 @@ interface Database
     public function createDeadlineTask(int $year, int $month, int $week,
                                        int $day, Task $task): DeadlineTask;
 
-    public function createTask(int $taskId, string $description,
+    public function createTask(string $description,
                                bool $importantTask): Task;
 
-    public function getAllTask(): array;
+    public function getTaskForToday(int $year, int $month, int $week, int $day);
 }
