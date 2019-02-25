@@ -1,5 +1,6 @@
 <?php
 
+require_once ("../Database/Database.php");
 
 class TaskBook
 {
@@ -10,9 +11,14 @@ class TaskBook
         $this->database = $databaseObject;
     }
 
-    public function saveTask(int $year, int $month, int $week, int $day, Task $task)
+    public function saveTask(DeadlineTask $deadlineTask)
     {
-        $this->database->saveTask($year, $month, $week, $day, $task);
+        $this->database->saveTask($deadlineTask);
+    }
+
+    public function getTaskForToday(int $year, int $month, int $week, int $day)
+    {
+        $this->database->getTaskForToday($year, $month, $week, $day);
     }
 
     public function updateTask(int $year, int $month, int $week, int $day, Task $oldTask, Task $task)
@@ -31,16 +37,9 @@ class TaskBook
         return $deadlineTask;
     }
 
-
-    public function createTask(int $taskId, string $description, bool $importantTask): Task
+    public function createTask(string $description, bool $importantTask): Task
     {
-        $task = $this->database->createTask($taskId, $description, $importantTask);
+        $task = $this->database->createTask($description, $importantTask);
         return $task;
-    }
-
-    public function getAllTask(): array
-    {
-        $tasks = $this->database->getAllTask();
-        return $tasks;
     }
 }

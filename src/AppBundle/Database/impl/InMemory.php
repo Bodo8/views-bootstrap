@@ -7,12 +7,6 @@
  */
 
 
-require_once("../Database.php");
-require_once("../../Entity/DeadlineFactory.php");
-require_once("../../Entity/DeadlineTask.php");
-require_once("../../Entity/Task.php");
-require_once("../../Entity/TaskFactory.php");
-
 class InMemory implements Database
 {
     private $deadlineTaskTab;
@@ -25,8 +19,13 @@ class InMemory implements Database
         $this->deadlineTaskTab = [];
     }
 
-    public function saveTask(int $year, int $month, int $week, int $day, Task $task)
+    public function saveTask(DeadlineTask $deadlineTask)
     {
+         $year = $deadlineTask->getYear();
+         $month = $deadlineTask->getMonth();
+         $week = $deadlineTask->getWeek();
+         $day = $deadlineTask->getDay();
+         $task = $deadlineTask->getTask();
 
         $isImportantTask = $task->isImportantTask();
         if (!isset($this->deadlineTaskTab[$year] [$month] [$week] [$day] [0])) {
@@ -46,7 +45,8 @@ class InMemory implements Database
     public function updateTask(int $year, int $month, int $week, int $day, Task $oldTask, \Task $task)
     {
         $this->deleteTask($year, $month, $week, $day, $oldTask);
-        $this->saveTask($year, $month, $week, $day, $task);
+        $deadline = $this->createDeadlineTask($year, $month, $week, $day, $task);
+        $this->saveTask($deadline);
     }
 
     public function deleteTask(int $year, int $month, int $week, int $day, Task $task)
@@ -63,16 +63,28 @@ class InMemory implements Database
         return $deadlineTask;
     }
 
-    public function createTask(int $taskId, string $description,
+    public function createTask(string $description,
                                bool $importantTask): Task
     {
+        $taskId = $this->getId();
         $director = TaskFactory::director();
         $task = $director->createWithId($taskId, $description, $importantTask);
         return $task;
     }
 
-    public function getAllTask(): array
+    public function getTaskForToday(int $year, int $month, int $week, int $day): array
     {
-        return $this->deadlineTaskTab;
+        ///
+        // to do add implements
     }
+
+    /**
+     * @return int simple function - Nothing can guarantee 100% uniqueness.
+     */
+    function getId()
+    {
+        $id = crc32(uniqid());
+        return $id;
+    }
+
 }
