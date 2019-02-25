@@ -7,12 +7,6 @@
  */
 
 
-require_once("../Database.php");
-require_once("../../Entity/DeadlineFactory.php");
-require_once("../../Entity/DeadlineTask.php");
-require_once("../../Entity/Task.php");
-require_once("../../Entity/TaskFactory.php");
-
 class InMemory implements Database
 {
     private $deadlineTaskTab;

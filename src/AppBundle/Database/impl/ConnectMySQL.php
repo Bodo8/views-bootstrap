@@ -43,5 +43,7 @@ class ConnectMySQL
         return $this->connectDb;
     }
 
-    private function __clone() { }
+    private function __clone() {}
+
+    private function __wakeup() {}
 }

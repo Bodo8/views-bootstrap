@@ -6,6 +6,10 @@ let tabWithNumberDays = [];
 tabWithNumberDays[0] = 0;
 let tabWithNumberDaysStars = [];
 
+/**
+ * the object contains the current date.
+ * @type {{monthCurrent: number, yearCurrent: number, numberDayWeek: number, dayCurrent: number, weekCurrent: number}}
+ */
 let currentDate = {
     yearCurrent: todayDate.getFullYear(),
     monthCurrent: rightNumberOfMonth,
@@ -14,6 +18,10 @@ let currentDate = {
     numberDayWeek: todayDate.getDay(),
 };
 
+/**
+ * the table contains the current date.
+ * @type {Array}
+ */
 let dateTab = [];
 dateTab["actualYear"] = currentDate.yearCurrent;
 dateTab["actualMonth"] = currentDate.monthCurrent;
@@ -21,11 +29,19 @@ dateTab["actualWeek"] = currentDate.weekCurrent;
 dateTab["actualDay"] = currentDate.dayCurrent;
 dateTab["actualNumberDayWeek]"] = currentDate.numberDayWeek;
 
+/**
+ *
+ * @returns {Array} with current date.
+ */
 function getDateTab() {
     let actualDate = dateTab;
     return actualDate;
 }
 
+/**
+ * function returns the length of the month.
+ * @returns {number}
+ */
 function getLastDayMonth() {
     let month = dateTab["actualMonth"];
 
@@ -63,7 +79,7 @@ function getLastDayMonth() {
  */
 function generateNumberDays(refresh) {
 
-    let numberFirstDay = getFirstDayMonth();
+    let numberFirstDay = getNumberFirstDayMonth();
     let lastDayMonth = getLastDayMonth();
     let week = 0;
     let stringDayMonth = 1;
@@ -121,6 +137,9 @@ function generateNumberDays(refresh) {
 }
 generateNumberDays();
 
+/**
+ * generate tab with number of days actual view month and adds "*".
+ */
 function generateTabWithNumberDaysStars() {
     for (let i = 0; i < tabWithNumberDays.length; i++) {
         let day = tabWithNumberDays[i];
@@ -132,7 +151,7 @@ function generateTabWithNumberDaysStars() {
 }
 generateTabWithNumberDaysStars();
 
-function createListGroup() {
+function createListWithTasks() {
     let divRow = document.getElementById('rowList');
     let ul = document.createElement('ul');
     ul.className = 'list-group';
@@ -142,9 +161,9 @@ function createListGroup() {
     divRow.appendChild(ul);
     document.body.appendChild(ul);
 }
-createListGroup();
+createListWithTasks();
 
-function setActiveCurrentButton() {
+function setActiveCurrentDayOfMonth() {
     let header = document.getElementById("daysMonthButton");
     let buttons = header.getElementsByClassName("btn");
     let currentDay = dateTab["actualDay"];
@@ -156,7 +175,7 @@ function setActiveCurrentButton() {
         }
     }
 }
-setActiveCurrentButton();
+setActiveCurrentDayOfMonth();
 
 function isSunday(numberWeekDay) {
     if (numberWeekDay === 0) {
@@ -237,7 +256,10 @@ function getActiveDate(dayActive) {
         return new Date(year, (month - 1), dayActive);
 }
 
-function getFirstDayMonth() {
+/**
+ * @returns {number} for example, 1 means Monday.
+ */
+function getNumberFirstDayMonth() {
     let year = dateTab["actualYear"];
     let month = dateTab["actualMonth"];
     let tempDate = new Date(year, (month - 1), 1);
@@ -249,7 +271,7 @@ function getTabWithNumberDays() {
     return tabWithNumberDays;
 }
 
-function setActualDayButton(numberDay) {
+function setActualDayMonthAfterClickMouse(numberDay) {
     let day = tabWithNumberDays[numberDay];
     if (day > 0) {
     dateTab["actualDay"] = day;
@@ -269,7 +291,7 @@ function removeOldListTask() {
     }
 }
 
-function addElementToList(lineFromDB) {
+function addElementToListTasks(lineFromDB) {
     let input = document.getElementById("textToList");
     let textTask = input.value;
     dateTab["descriptionTask"] = textTask;

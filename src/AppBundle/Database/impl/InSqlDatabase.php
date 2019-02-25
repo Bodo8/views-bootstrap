@@ -47,16 +47,6 @@ class InSqlDatabase implements Database
 
     }
 
-    public function updateTask(int $year, int $month, int $week, int $day, Task $oldTask, Task $task)
-    {
-        // TODO: Implement updateTask() method.
-    }
-
-    public function deleteTask(int $year, int $month, int $week, int $day, Task $task)
-    {
-        // TODO: Implement deleteTask() method.
-    }
-
     public function getTaskForToday(int $year, int $month, int $week, int $day)
     {
         $idListFromDatabase = [];

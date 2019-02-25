@@ -41,7 +41,7 @@ function getTaskFromDatabase(actualDateTab) {
         if (xmlHttpResponse.readyState === 4) {
             if (xmlHttpResponse.status === 200) {
                 let taskFromDatabase = JSON.parse(this.responseText);
-                addElementToList(taskFromDatabase);
+                addElementToListTasks(taskFromDatabase);
             }
 
             if (xmlHttpResponse.status === 404) {

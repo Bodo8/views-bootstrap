@@ -19,6 +19,9 @@ require_once("../Entity/TaskFactory.php");
 class ControllerRequest
 {
 
+    /**
+     * this function save and read task from database.
+     */
     public function handlerRequest()
     {
         if ($_POST['action'] === 'save') {
